@@ -7,3 +7,9 @@ class User(db.Document):
     first_name = db.StringField(db_field='fn',max_length=20)
     last_name = db.StringField(db_field='ln',max_length=20)
     created = db.IntField(db_field='cr',default=now())
+    meta= 
+    {
+        #setting mongo indexes of username,email and date created(negative for most recently used first)
+    indexes=['username','email','-created']    
+    }
+    

@@ -12,9 +12,9 @@ def create_app():
     
     #initialize database for application
     db.init_app(app)
-    
+    #import the blueprint
     from user.views import user_app
-    
+    #register the blueprint
     app.register_blueprint(user_app)
     
     return app
