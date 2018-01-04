@@ -7,4 +7,3 @@ class User(db.Document):
     first_name = db.StringField(db_field='fn',max_length=20)
     last_name = db.StringField(db_field='ln',max_length=20)
     created = db.IntField(db_field='cr',default=now())
-    
