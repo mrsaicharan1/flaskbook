@@ -11,4 +11,8 @@ def login():
 def register():
     form=RegisterForm()
     return render_template('user/register.html',form=form)
+
+
+
+
     
