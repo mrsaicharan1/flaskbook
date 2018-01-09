@@ -1,17 +1,12 @@
 from flask_wtf import Form
-
 from wtforms import validators, StringField, PasswordField
-
 from wtforms.widgets import TextArea
-
 from wtforms.fields.html5 import EmailField
-
 from wtforms.validators import ValidationError
-
 from flask_wtf.file import FileField, FileAllowed
-
 import re
 
+from models import user
 
 class RegisterForm(Form):
     first_name=StringField('First Name',[validators.Required()])
