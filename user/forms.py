@@ -6,7 +6,7 @@ from wtforms.validators import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 import re
 
-from models import user
+from models import User
 
 class RegisterForm(Form):
     first_name=StringField('First Name',[validators.Required()])

@@ -1,5 +1,6 @@
 from application import db
 from utilities.common import utc_now_ts as now
+from flask_mongoalchemy import MongoAlchemy
 class User(db.Document):
     username = db.StringField(db_field='u',required=True)
     password = db.StringField(db_field='p',required=True)
@@ -7,9 +8,5 @@ class User(db.Document):
     first_name = db.StringField(db_field='fn',max_length=20)
     last_name = db.StringField(db_field='ln',max_length=20)
     created = db.IntField(db_field='cr',default=now())
-    meta= 
-    {
-        #setting mongo indexes of username,email and date created(negative for most recently used first)
-    indexes=['username','email','-created']    
-    }
+  
     
