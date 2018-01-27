@@ -15,3 +15,8 @@ class RegisterForm(Form):
     username=StringField('username',[validators.Required(),validators.length(min=4,max=25)])
     password=PasswordField('New password',[validators.DataRequired(),validators.EqualTo('confirm',message='Passwords must match'),validators.length(min=4,max=25)])
     confirm=PasswordField('Repeat password')
+
+class LoginForm(Form):
+    username=StringField('username',[validators.DataRequired()])
+    password=PasswordField('password',[validators.DataRequired(),validators.length(min=4,max=25)])
+    

@@ -17,7 +17,7 @@ class UserTest(unittest.TestCase):
         
     def setUp(self):
         self.app_factory = self.create_app()
-        self.app = self.app_factory.test_client()
+        self.app = self.app_factory.test_client()# fetches GET and POST capabilities for the app. 
 
     def tearDown(self):
         db = _get_db()

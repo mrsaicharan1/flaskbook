@@ -1,5 +1,5 @@
-from flask import Blueprint,render_template
-from user.forms import RegisterForm
+from flask import Blueprint,render_template,request,redirect,session
+from user.forms import RegisterForm,LoginForm
 from wtforms.validators import ValidationError
 import bcrypt
 
@@ -8,9 +8,7 @@ from user.models import User
 
 user_app = Blueprint('user_app',__name__)
 
-@user_app.route('/login')
-def login():
-    return 'User login'
+
     
 @user_app.route('/register',methods=('POST','GET'))
 def register():
@@ -29,6 +27,28 @@ def validate_username(form,field):
 def validate_email(form,field):
     if User.objects.filter(email=field.data).first():
         raise ValidationError("email already taken")
+@user_app.route('/login', methods=('GET', 'POST'))
+def login():
+    form = LoginForm()
+    error = None
+    
+    if request.method == 'GET' and request.args.get('next'):
+        session['next'] = request.args.get('next')
+        
+    if form.validate_on_submit():
+        user = User.objects.filter(
+            username=form.username.data
+            ).first()
+        if user:
+            if bcrypt.hashpw(form.password.data, user.password) == user.password:
+                session['username'] = form.username.data
+                
+            else:
+                user = None
+        if not user:
+            error = 'Incorrect credentials'
+    return render_template('user/login.html', form=form, error=error)
+    
         
 
 
