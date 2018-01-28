@@ -23,13 +23,17 @@ class UserTest(unittest.TestCase):
         db = _get_db()
         db.client.drop_database(db)
     
-    def test_register_user(self):
-        # basic registration
-        rv = self.app.post('/register', data=dict(
+    def user_dict(self):
+         data=dict(
             first_name="Jorge",
             last_name="Escobar",
             username="jorge",
             email="jorge@example.com",
             password="test123",
-            confirm="test123"
-            ), follow_redirects=True)
+            confirm="test123")
+        
+    
+    def test_register_user(self):
+        # basic registration
+        rv = self.app.post('/register', data=self.user_dict()
+            ,follow_redirects=True)

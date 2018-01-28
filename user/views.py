@@ -32,9 +32,7 @@ def login():
     form = LoginForm()
     error = None
     
-    if request.method == 'GET' and request.args.get('next'):
-        session['next'] = request.args.get('next')
-        
+    
     if form.validate_on_submit():
         user = User.objects.filter(
             username=form.username.data
