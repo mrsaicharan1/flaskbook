@@ -4,7 +4,7 @@ from flask_mongoengine import MongoEngine
 #assign global variable db
 db=MongoEngine()
 
-def create_app(**config_overrides**):
+def create_app(**config_overrides):
         
     app = Flask(__name__)
     
