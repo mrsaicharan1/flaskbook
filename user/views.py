@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,redirect,session
+from flask import Blueprint,render_template,request,redirect,session,url_for
 from user.forms import RegisterForm,LoginForm
 from wtforms.validators import ValidationError
 import bcrypt
@@ -46,6 +46,11 @@ def login():
         if not user:
             error = 'Incorrect credentials'
     return render_template('user/login.html', form=form, error=error)
+
+@user_app.route('/logout', methods=('GET', 'POST'))
+def logout():
+    session.pop('username')
+    return redirect(url_for('user_app.login'))
     
         
 

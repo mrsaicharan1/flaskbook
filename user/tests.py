@@ -24,28 +24,26 @@ class UserTest(unittest.TestCase):
         db.client.drop_database(db)
     
     def user_dict(self):
-         data=dict(
+        data = dict(
             first_name="Jorge",
             last_name="Escobar",
             username="jorge",
             email="jorge@example.com",
             password="test123",
             confirm="test123")
+        return data
         
     
     def test_register_user(self):
         # basic registration
-        rv = self.app.post('/register', data=self.user_dict()
-            ,follow_redirects=True)
-        assert User.objects.filter(username="jorge").count()== 1
+        rv = self.app.post('/register', data=self.user_dict(),follow_redirects=True)
+        assert User.objects.filter(username=self.user_dict()['username']).count() == 1,"Username not registered onto database"
     
     def test_login_user(self):
         #create user
         self.app.post('/register',data=self.user_dict())
-        rv = self.app.post('/login',data=dict(
-        username=self.user_dict()['username'],
-        password=self.user_dict()['password']))
+        rv = self.app.post('/login',data=dict(username = self.user_dict()['username'], password = self.user_dict()['password']))
             #check session is set
         with self.app as c:
             rv = c.get('/')
-            assert session.get('username') == self.user_dict()['username']
+            assert session.get('username') == self.user_dict()['username'],"Session username not set"
