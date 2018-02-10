@@ -27,6 +27,9 @@ def validate_username(form,field):
 def validate_email(form,field):
     if User.objects.filter(email=field.data).first():
         raise ValidationError("email already taken")
+
+
+
 @user_app.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
@@ -46,6 +49,9 @@ def login():
         if not user:
             error = 'Incorrect credentials'
     return render_template('user/login.html', form=form, error=error)
+
+
+
 
 @user_app.route('/logout', methods=('GET', 'POST'))
 def logout():

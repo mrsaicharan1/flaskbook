@@ -17,14 +17,14 @@
     {% endif %}
 
     {% from "_formhelpers.html" import render_field %}
-    <form method="POST" action="{{ url_for('user_app.login')}}" role="form">
+    <form method="POST" action="{{ url_for('.login')}}" role="form">
 
       {{ form.hidden_tag() }}
 
-      {{ render_field(form.username, class='form- control') }}
+      {{ render_field(form.username, class='form-control') }}
       {{ render_field(form.password, **{"class": "form-control", "aria-described-by": "passwordHelpBlock"}) }}
       
-
+    
 
       <button type="submit" class="btn btn-default">Login</button>
 
