@@ -53,7 +53,7 @@ def login():
 
 @user_app.route('/<username>', methods=('GET', 'POST'))
 def profile(username):
-    user=User.objects.filter(username=username).first()
+    user
     return render_template('user/profile.html')
     
 
