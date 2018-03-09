@@ -54,7 +54,7 @@ def login():
 @user_app.route('/<username>', methods=('GET', 'POST'))
 def profile(username):
     user=User.objects.filter(username=username).first()
-    return render_template('user/profile.html')
+    return render_template('user/profile.html',user=user)
     
 
 
