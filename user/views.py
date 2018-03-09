@@ -21,12 +21,6 @@ def register():
         return 'User registered'
     return render_template('user/register.html',form=form)
 
-def validate_username(form,field):
-    if User.objects.filter(username=field.data).first():
-        raise ValidationError("username already exists")
-def validate_email(form,field):
-    if User.objects.filter(email=field.data).first():
-        raise ValidationError("email already taken")
 
 
 
