@@ -15,6 +15,15 @@ class RegisterForm(Form):
     username=StringField('username',[validators.Required(),validators.length(min=4,max=25)])
     password=PasswordField('New password',[validators.DataRequired(),validators.EqualTo('confirm',message='Passwords must match'),validators.length(min=4,max=25)])
     confirm=PasswordField('Repeat password')
+    
+    def validate_username(form,field):
+        if User.objects.filter(username=field.data).first():
+            raise ValidationError("username already exists")
+    
+    def validate_email(form,field):
+        if User.objects.filter(email=field.data).first():
+            raise ValidationError("email already taken")
+
 
 class LoginForm(Form):
     username=StringField('username',[validators.DataRequired()])
