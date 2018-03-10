@@ -13,6 +13,7 @@ class BaseUserForm(Form):
     last_name=StringField('Last Name',[validators.Required()])
     email=EmailField('Email Address',[validators.Required()])
     username=StringField('username',[validators.Required(),validators.length(min=4,max=25)])
+    
 class RegisterForm(BaseUserForm):
     password=PasswordField('New password',[validators.DataRequired(),validators.EqualTo('confirm',message='Passwords must match'),validators.length(min=4,max=25)])
     confirm=PasswordField('Repeat password')
@@ -20,7 +21,7 @@ class RegisterForm(BaseUserForm):
     def validate_username(form,field):
         if User.objects.filter(username=field.data).first():
             raise ValidationError("username already exists")
-        if not re.match(^[a-zA-Z0-9_-]{4,25}$):
+        if not re.match(^[a-zA-Z0-9_-]{4,25}$,field.data):
             raise ValidationError("Invalid Username characters",field.data)
     
     def validate_email(form,field):
@@ -32,3 +33,5 @@ class LoginForm(Form):
     username=StringField('username',[validators.DataRequired()])
     password=PasswordField('password',[validators.DataRequired(),validators.length(min=4,max=25)])
     
+class EditForm(BaseUserForm):
+    pass        
