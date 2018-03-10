@@ -7,12 +7,15 @@ from flask_wtf.file import FileField, FileAllowed
 import re
 from models import User
 
+# base form used for extending to other forms
 class BaseUserForm(Form):
     first_name=StringField('First Name',[validators.Required()])
     last_name=StringField('Last Name',[validators.Required()])
     email=EmailField('Email Address',[validators.Required()])
     username=StringField('username',[validators.Required(),validators.length(min=4,max=25)])
-    
+    bio= StringField('bio',[validators.length(max=160)])
+
+# Registration form    
 class RegisterForm(BaseUserForm):
     password=PasswordField('New password',[validators.DataRequired(),validators.EqualTo('confirm',message='Passwords must match'),validators.length(min=4,max=25)])
     confirm=PasswordField('Repeat password')
@@ -27,10 +30,11 @@ class RegisterForm(BaseUserForm):
         if User.objects.filter(email=field.data).first():
             raise ValidationError("email already taken")
 
-
+#login form
 class LoginForm(Form):
     username=StringField('username',[validators.DataRequired()])
     password=PasswordField('password',[validators.DataRequired(),validators.length(min=4,max=25)])
-    
+
+# Edit form    
 class EditForm(BaseUserForm):
     pass        
