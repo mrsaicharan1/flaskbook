@@ -1,9 +1,9 @@
-from flask import Blueprint,render_template,request,redirect,session,url_for
-from user.forms import RegisterForm,LoginForm
+from flask import Blueprint,render_template,request,redirect,session,url_for,abort
 from wtforms.validators import ValidationError
 import bcrypt
 
 from user.models import User
+from user.forms import RegisterForm, LoginForm, EditForm
 
 
 user_app = Blueprint('user_app',__name__)
@@ -47,9 +47,14 @@ def login():
 
 @user_app.route('/<username>', methods=('GET', 'POST'))
 def profile(username):
+    edit_profile = False
     user=User.objects.filter(username=username).first()
-    return render_template('user/profile.html',user=user)
-    
+    if session.get('username') and user.username == session.get('username'):
+        edit_profile=True
+    if user:
+        return render_template('user/profile.html',user=user,edit_profile= edit_profile)
+    else:
+        abort(404)
 
 
 @user_app.route('/logout', methods=('GET', 'POST'))
