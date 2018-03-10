@@ -5,7 +5,6 @@ from wtforms.fields.html5 import EmailField
 from wtforms.validators import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 import re
-
 from models import User
 
 class BaseUserForm(Form):
