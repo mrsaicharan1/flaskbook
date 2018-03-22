@@ -13,15 +13,9 @@ class User(db.Document):
     created = db.IntField(db_field='cr',default=now())
     bio = db.StringField(db_field='b',max_length=160)
     
-    @classmethod
+    @classmethod # decorator used to save the credentials in lowercase
     def pre_save(cls, sender, document, **kwargs):
         document.username = document.username.lower()
         email.username = email.username.lower() 
-        
-    meta =
-    
-    {
-        'indexes' : [ 'username' , 'email' , '-created' ]
-    }
 
 signals.pre_save.connect(User.pre_save, sender = User)

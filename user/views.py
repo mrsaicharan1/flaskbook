@@ -14,8 +14,7 @@ user_app = Blueprint('user_app',__name__)
 def register():
     form=RegisterForm()
     if form.validate_on_submit():
-        salt=bcrypt.gensalt(10)
-        hashed_password=bcrypt.hashpw(form.password.data,salt)
+        hashed_password=bcrypt.hashpw(form.password.data, bcrypt.gensalt(10))
         user = User(username=form.username.data,password=hashed_password,email=form.email.data,first_name=form.first_name.data,last_name=form.last_name.data)
         user.save()
         return 'User registered'
@@ -31,9 +30,7 @@ def login():
     
     
     if form.validate_on_submit():
-        user = User.objects.filter(
-            username=form.username.data
-            ).first()
+        user = User.objects.filter(username=form.username.data).first()
         if user:
             if bcrypt.hashpw(form.password.data, user.password) == user.password:
                 session['username'] = form.username.data
@@ -52,7 +49,7 @@ def profile(username):
     if session.get('username') and user.username == session.get('username'):
         edit_profile=True
     if user:
-        return render_template('user/profile.html',user=user,edit_profile= edit_profile)
+        return render_template('user/profile.html',user=user,edit_profile=edit_profile)
     else:
         abort(404)
 
@@ -61,7 +58,10 @@ def profile(username):
 def logout():
     session.pop('username')
     return redirect(url_for('user_app.login'))
-    
+
+@user_app.route('/edit', methods=('GET','POST'))
+def edit():
+    return "Edit Profile"
         
 
 
