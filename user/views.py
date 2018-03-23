@@ -15,7 +15,7 @@ def register():
     form=RegisterForm()
     if form.validate_on_submit():
         hashed_password=bcrypt.hashpw(form.password.data, bcrypt.gensalt(10))
-        user = User(username=form.username.data,password=hashed_password,email=form.email.data,first_name=form.first_name.data,last_name=form.last_name.data)
+        user = User(username=form.username.data, password=hashed_password, email=form.email.data, first_name=form.first_name.data, last_name=form.last_name.data)
         user.save()
         return 'User registered'
     return render_template('user/register.html',form=form)
@@ -45,12 +45,12 @@ def login():
 @user_app.route('/<username>', methods=('GET', 'POST'))
 def profile(username):
     edit_profile = False
-    user=User.objects.filter(username=username).first()
+    user = User.objects.filter(username=username).first()
     if session.get('username') and user.username == session.get('username'):
-        edit_profile=True
+        edit_profile = True
     if user:
-        return render_template('user/profile.html',user=user,edit_profile=edit_profile)
-    else:
+        return render_template('user/profile.html', user=user, edit_profile=edit_profile)
+    else: 
         abort(404)
 
 
