@@ -7,7 +7,7 @@ def email(to_email, subject, body_html, body_text):
 
     client = boto3.client('ses')
     return client.send_email(
-        Source='webmaster@fromzero.io',
+        Source='saicharan.reddy1@gmail.com',
             Destination={
                 'ToAddresses': [
                     to_email,
