@@ -1,0 +1,5 @@
+{% block body %}{% endblock %}
+
+---
+Flaskbook Team
+https://www.example.com
